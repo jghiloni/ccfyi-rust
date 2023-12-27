@@ -14,3 +14,16 @@ pub(crate) fn count_bytes(raw: &mut dyn BufRead) -> Result<usize> {
 
     Ok(count)
 }
+
+pub(crate) fn count_lines(raw: &mut dyn BufRead) -> Result<usize> {
+    let mut reader = BufReader::new(raw);
+    let mut count: usize = 0;
+
+    let mut line = String::new();
+    while let Ok(1..) = reader.read_line(&mut line) {
+        count += 1;
+        line.clear();
+    }
+
+    Ok(count)
+}

@@ -1,5 +1,5 @@
 use clap::Parser;
-use counters::count_bytes;
+use counters::{count_bytes, count_lines};
 use std::fs::File;
 use std::io::{self, stdin, BufRead, BufReader, Error, ErrorKind};
 
@@ -10,8 +10,12 @@ mod counters;
 #[command(author, version, about, long_about = None)]
 struct CCWC {
     /// Count bytes
-    #[arg(short, default_value_t = false)]
+    #[arg(short = 'c', default_value_t = false)]
     count_bytes: bool,
+
+    /// Count lines
+    #[arg(short = 'l', default_value_t = false)]
+    count_lines: bool,
 
     /// The file to count. Pass "-" or omit to use standard in
     stream_source: Option<String>,
@@ -39,12 +43,15 @@ fn main() -> io::Result<()> {
     };
 
     
-
-    if cli.count_bytes {
-        let count_result = count_bytes(reader);
-        println!("{:>8} {}", count_result.unwrap(), stream_source);
-        Ok(())
+    let result = if cli.count_bytes {
+        count_bytes(reader)
+    } else if cli.count_lines {
+        count_lines(reader)
     } else {
         Err(Error::new(ErrorKind::InvalidInput, "one of [-c] must be specified!"))
-    }
+    };
+
+    println!("{:>8} {}", result.unwrap(), stream_source);
+    Ok(())
+
 }
