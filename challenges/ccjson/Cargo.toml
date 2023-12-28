@@ -1,0 +1,22 @@
+[package]
+name = "ccjson"
+version.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pest = "2.7.5"
+pest_derive = "2.7.5"
+
+[[bin]]
+name = "ccjson"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+glob = "0.3.1"

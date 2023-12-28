@@ -1,8 +1,6 @@
 [workspace]
 resolver = "2"
-members = [
-    "challenges/ccwc"
-]
+members = ["challenges/ccwc", "challenges/ccjson"]
 
 [workspace.package]
 version = "0.0.0"

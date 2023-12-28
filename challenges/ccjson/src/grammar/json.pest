@@ -1,0 +1,31 @@
+document = { SOI ~ VALUE ~ EOI }
+
+WHITESPACE = _{ PATTERN_WHITE_SPACE }
+
+VALUE = { NULL | BOOL | NUMBER | STRING | ARRAY | OBJECT }
+
+NULL = { "null" }
+
+BOOL = { "true" | "false" }
+
+NUMBER = { INTEGER | FLOAT | SCI }
+
+STRING = { QUOTATION_MARK ~ !NEWLINE* ~ QUOTATION_MARK }
+
+ARRAY = { "[" ~ ELEMENTS* ~ "]" }
+
+OBJECT = { "{" ~ MEMBERS* ~ "}" }
+
+INTEGER = { SIGN* ~ ASCII_DIGIT+ }
+
+SIGN = { "-" | "+" }
+
+FLOAT = { INTEGER ~ "." ~ ASCII_DIGIT+ }
+
+SCI = { (INTEGER | FLOAT) ~ ^"e" ~ INTEGER }
+
+ELEMENTS = { VALUE ~ ("," ~ VALUE)* }
+
+MEMBERS = { MEMBER ~ ("," ~ MEMBER)* }
+
+MEMBER = { STRING ~ ":" ~ VALUE }
