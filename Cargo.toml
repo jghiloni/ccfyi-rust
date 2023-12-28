@@ -13,7 +13,6 @@ publish = false
 [workspace.lints.rust]
 unreachable_pub = "warn"
 unsafe_code = "warn"
-unused_crate_dependencies = "warn"
 
 [workspace.lints.clippy]
 panic_in_result_fn = "warn"
@@ -26,6 +25,8 @@ module_name_repetitions = "allow"
 
 [workspace.dependencies]
 clap = { version = "4.4.11", features = ["derive"] }
+assert_cmd = "2.0.12"
+predicates = "3.0.4"
 
 [profile.release]
 strip = true
