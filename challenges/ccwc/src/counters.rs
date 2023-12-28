@@ -27,3 +27,22 @@ pub(crate) fn count_lines(raw: &mut dyn BufRead) -> Result<usize> {
 
     Ok(count)
 }
+
+pub(crate) fn count_words(raw: &mut dyn BufRead) -> Result<usize> {
+    let mut reader = BufReader::new(raw);
+
+    let mut file_str = String::new();
+    let _ = reader.read_to_string(&mut file_str);
+
+    let words: Vec<&str> = file_str.split_whitespace().collect();
+    Ok(words.len())
+}
+
+pub(crate) fn count_chars(raw: &mut dyn BufRead) -> Result<usize> {
+    let mut reader = BufReader::new(raw);
+
+    let mut file_str = String::new();
+    let _ = reader.read_to_string(&mut file_str);
+    let chars: Vec<char> = file_str.chars().collect();
+    Ok(chars.len())
+}
